@@ -1,8 +1,6 @@
 package org.frc3624.common.motion;
 
-import java.io.Serializable;
-
-public final class TrapezoidalMotionProfile extends MotionProfile implements Serializable {
+public final class TrapezoidalMotionProfile extends MotionProfile {
 	private static final long serialVersionUID = 6593296352896093663L;
 
 	private final int direction;
@@ -52,10 +50,10 @@ public final class TrapezoidalMotionProfile extends MotionProfile implements Ser
 
 	private State direct(State in) {
 		return new State(
-				in.time,
-				in.position * direction,
-				in.velocity * direction,
-				in.acceleration * direction
+			in.time,
+			in.position * direction,
+			in.velocity * direction,
+			in.acceleration * direction
 		);
 	}
 

@@ -33,10 +33,10 @@ public final class SplinePathBuilder {
 
     public SplinePathBuilder bezier(Vector2 controlPoint1, Vector2 controlPoint2, Vector2 end) {
         addSpline(new CubicBezierSpline(
-                lastState.getPosition(),
-                controlPoint1,
-                controlPoint2,
-                end
+            lastState.getPosition(),
+            controlPoint1,
+            controlPoint2,
+            end
         ));
         return this;
     }
@@ -49,8 +49,8 @@ public final class SplinePathBuilder {
 
     public SplinePathBuilder hermite(Vector2 position, Rotation2 heading) {
         addSpline(new CubicHermiteSpline(
-                lastState.getPosition(), lastState.getHeading(),
-                position, heading
+            lastState.getPosition(), lastState.getHeading(),
+            position, heading
         ));
         return this;
     }

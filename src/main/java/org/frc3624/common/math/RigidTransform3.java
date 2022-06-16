@@ -1,8 +1,5 @@
 package org.frc3624.common.math;
 
-import org.frc3624.common.math.Rotation3;
-import org.frc3624.common.math.Vector3;
-
 /**
  * A transform that represents a translation and rotation in 3d space
  */

@@ -6,8 +6,6 @@ import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.Objects;
 
-import static org.frc3624.common.math.MathUtils.epsilonEquals;
-
 /**
  * A vector representing a point in 2d space.
  *

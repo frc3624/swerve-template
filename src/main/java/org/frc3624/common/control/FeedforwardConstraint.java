@@ -30,14 +30,13 @@ public class FeedforwardConstraint extends TrajectoryConstraint {
     @Override
     public double getMaxAcceleration(Path.State state, double velocity) {
         return (targetFeedforward - kV * velocity) / kA;
-
     }
 
     @Override
     public double getMaxDeceleration(Path.State state, double velocity) {
         return getMaxAcceleration(
-                state,
-                fastDeceleration ? -velocity : velocity
+            state,
+            fastDeceleration ? -velocity : velocity
         );
     }
 }

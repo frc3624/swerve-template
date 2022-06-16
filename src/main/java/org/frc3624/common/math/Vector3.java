@@ -1,7 +1,5 @@
 package org.frc3624.common.math;
 
-import org.frc3624.common.math.MathUtils;
-
 import java.text.DecimalFormat;
 import java.util.Objects;
 
