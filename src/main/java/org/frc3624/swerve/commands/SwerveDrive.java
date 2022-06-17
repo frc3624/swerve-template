@@ -13,9 +13,9 @@ public class SwerveDrive extends CommandBase {
 	@Override
 	public void execute() {
 		Drive.getInstance().swerveDriveField(
-			Robot.getOI().getDriveStick().getRawAxis(0),
-			Robot.getOI().getDriveStick().getRawAxis(1),
-			Robot.getOI().getSpinStick().getRawAxis(0)
+			Robot.getOI().getDriveStick().getX(),
+			Robot.getOI().getDriveStick().getY(),
+			Robot.getOI().getSpinStick().getX()
 		);
 	}
 

@@ -69,10 +69,10 @@ public class Drive extends SubsystemBase {
 		new Translation2d(-TRACKWIDTH / 2.0, -WHEELBASE / 2.0)
 	);
 
-	private final NavX navX = new NavX();
+	private final NavX gyroscope = new NavX();
 
 	public Drive() {
-		navX.calibrate();
+		gyroscope.calibrate();
 
 		frontLeftModule.setName("Front Left");
 		frontRightModule.setName("Front Right");
@@ -96,7 +96,7 @@ public class Drive extends SubsystemBase {
 		SmartDashboard.putNumber("Back Left Module Angle", Math.toDegrees(backLeftModule.getCurrentAngle()));
 		SmartDashboard.putNumber("Back Right Module Angle", Math.toDegrees(backRightModule.getCurrentAngle()));
 
-		SmartDashboard.putNumber("Gyroscope Angle", navX.getAngle());
+		SmartDashboard.putNumber("Gyroscope Angle", gyroscope.getAngle());
 
 		frontLeftModule.updateState(TimedRobot.kDefaultPeriod);
 		frontRightModule.updateState(TimedRobot.kDefaultPeriod);
@@ -115,7 +115,7 @@ public class Drive extends SubsystemBase {
 		ChassisSpeeds speeds;
 		if (fieldOriented) {
 			speeds = ChassisSpeeds.fromFieldRelativeSpeeds(translation.getX(), translation.getY(), theta,
-					Rotation2d.fromDegrees(navX.getAngle()));
+					Rotation2d.fromDegrees(gyroscope.getAngle()));
 		} else {
 			speeds = new ChassisSpeeds(translation.getX(), translation.getY(), theta);
 		}
@@ -147,7 +147,7 @@ public class Drive extends SubsystemBase {
 		// Square the theta stick
 		theta = Math.copySign(Math.pow(theta, 2.0), theta);
 
-		Drive.getInstance().drive(new Translation2d(transY, transX), theta, false);
+		drive(new Translation2d(transY, transX), theta, false);
 	}
 	/**
 	 * Field Oriented Swerve Drive Method. Takes in the (x,y,θ) for the swerve
@@ -169,10 +169,10 @@ public class Drive extends SubsystemBase {
 		// Square the theta stick
 		theta = Math.copySign(Math.pow(theta, 2.0), theta);
 
-		Drive.getInstance().drive(new Translation2d(transY, transX), theta, true);
+		drive(new Translation2d(transY, transX), theta, true);
 	}
 
 	public void resetGyroscope() {
-		navX.setAngleAdjustment(0);
+		gyroscope.setAngleAdjustment(0);
 	}
 }
