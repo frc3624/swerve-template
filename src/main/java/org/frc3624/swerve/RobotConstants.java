@@ -38,6 +38,6 @@ public class RobotConstants {
 		}
 	}
 
-	public static final double TRACKWIDTH = 19.5;
+	public static final double TRACK_WIDTH = 19.5;
 	public static final double WHEELBASE = 23.5;
 }

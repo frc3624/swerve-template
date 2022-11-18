@@ -1,8 +1,9 @@
 package org.frc3624.swerve.subsystems;
 
-import static org.frc3624.swerve.RobotConstants.TRACKWIDTH;
+import static org.frc3624.swerve.RobotConstants.TRACK_WIDTH;
 import static org.frc3624.swerve.RobotConstants.WHEELBASE;
 
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 
@@ -30,7 +31,7 @@ public class Drive extends SubsystemBase {
 	public static Drive instance;
 
 	private final SwerveModule frontLeftModule = new Mk2SwerveModuleBuilder(
-		new Vector2(TRACKWIDTH / 2.0, WHEELBASE / 2.0))
+		new Vector2(TRACK_WIDTH / 2.0, WHEELBASE / 2.0))
 		.angleEncoder(new AnalogInput(DriveTrainFront.leftEncoder.val()), DriveOffsets.frontLeft.val())
 		.angleMotor(new CANSparkMax(DriveTrainFront.leftSpin.val(), CANSparkMaxLowLevel.MotorType.kBrushless),
 				Mk2SwerveModuleBuilder.MotorType.NEO)
@@ -38,35 +39,29 @@ public class Drive extends SubsystemBase {
 				Mk2SwerveModuleBuilder.MotorType.NEO)
 		.build();
 	private final SwerveModule frontRightModule = new Mk2SwerveModuleBuilder(
-		new Vector2(TRACKWIDTH / 2.0, -WHEELBASE / 2.0))
+		new Vector2(TRACK_WIDTH / 2.0, -WHEELBASE / 2.0))
 		.angleEncoder(new AnalogInput(DriveTrainFront.rightEncoder.val()), DriveOffsets.frontRight.val())
-		.angleMotor(new CANSparkMax(DriveTrainFront.rightSpin.val(), CANSparkMaxLowLevel.MotorType.kBrushless),
-				Mk2SwerveModuleBuilder.MotorType.NEO)
-		.driveMotor(new CANSparkMax(DriveTrainFront.rightDrive.val(), CANSparkMaxLowLevel.MotorType.kBrushless),
-				Mk2SwerveModuleBuilder.MotorType.NEO)
+		.angleMotor(new TalonFX(DriveTrainFront.rightSpin.val()))
+		.driveMotor(new TalonFX(DriveTrainFront.rightDrive.val()))
 		.build();
 	private final SwerveModule backLeftModule = new Mk2SwerveModuleBuilder(
-		new Vector2(-TRACKWIDTH / 2.0, WHEELBASE / 2.0))
+		new Vector2(-TRACK_WIDTH / 2.0, WHEELBASE / 2.0))
 		.angleEncoder(new AnalogInput(DriveTrainBack.leftEncoder.val()), DriveOffsets.backLeft.val())
-		.angleMotor(new CANSparkMax(DriveTrainBack.leftSpin.val(), CANSparkMaxLowLevel.MotorType.kBrushless),
-				Mk2SwerveModuleBuilder.MotorType.NEO)
-		.driveMotor(new CANSparkMax(DriveTrainBack.leftDrive.val(), CANSparkMaxLowLevel.MotorType.kBrushless),
-				Mk2SwerveModuleBuilder.MotorType.NEO)
+		.angleMotor(new TalonFX(DriveTrainBack.leftSpin.val()))
+		.driveMotor(new TalonFX(DriveTrainBack.leftDrive.val()))
 		.build();
 	private final SwerveModule backRightModule = new Mk2SwerveModuleBuilder(
-		new Vector2(-TRACKWIDTH / 2.0, -WHEELBASE / 2.0))
+		new Vector2(-TRACK_WIDTH / 2.0, -WHEELBASE / 2.0))
 		.angleEncoder(new AnalogInput(DriveTrainBack.rightEncoder.val()), DriveOffsets.backRight.val())
-		.angleMotor(new CANSparkMax(DriveTrainBack.rightSpin.val(), CANSparkMaxLowLevel.MotorType.kBrushless),
-				Mk2SwerveModuleBuilder.MotorType.NEO)
-		.driveMotor(new CANSparkMax(DriveTrainBack.rightDrive.val(), CANSparkMaxLowLevel.MotorType.kBrushless),
-				Mk2SwerveModuleBuilder.MotorType.NEO)
+		.angleMotor(new TalonFX(DriveTrainBack.rightSpin.val()))
+		.driveMotor(new TalonFX(DriveTrainBack.rightDrive.val()))
 		.build();
 
 	private final SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
-		new Translation2d(TRACKWIDTH / 2.0, WHEELBASE / 2.0),
-		new Translation2d(TRACKWIDTH / 2.0, -WHEELBASE / 2.0),
-		new Translation2d(-TRACKWIDTH / 2.0, WHEELBASE / 2.0),
-		new Translation2d(-TRACKWIDTH / 2.0, -WHEELBASE / 2.0)
+		new Translation2d(TRACK_WIDTH / 2.0, WHEELBASE / 2.0),
+		new Translation2d(TRACK_WIDTH / 2.0, -WHEELBASE / 2.0),
+		new Translation2d(-TRACK_WIDTH / 2.0, WHEELBASE / 2.0),
+		new Translation2d(-TRACK_WIDTH / 2.0, -WHEELBASE / 2.0)
 	);
 
 	private final NavX gyroscope = new NavX();
@@ -111,7 +106,7 @@ public class Drive extends SubsystemBase {
 	 * @param fieldOriented
 	 */
 	private void drive(Translation2d translation, double theta, boolean fieldOriented) {
-		theta *= 2.0 / Math.hypot(WHEELBASE, TRACKWIDTH);
+		theta *= 2.0 / Math.hypot(WHEELBASE, TRACK_WIDTH);
 		ChassisSpeeds speeds;
 		if (fieldOriented) {
 			speeds = ChassisSpeeds.fromFieldRelativeSpeeds(translation.getX(), translation.getY(), theta,
